@@ -12,9 +12,9 @@ use App\Http\Requests\RecipeTrackerRequest;
 class RecipeTrackerController extends Controller
 {
     //List
-    public function recipeListTracker(Request $request) {
+    public function list(Request $request) {
         try {
-            $data = RecipeTracker::recipeListTracker($request->all());
+            $data = RecipeTracker::list($request->all());
 
             if($data) {
                 $array = [
@@ -31,7 +31,7 @@ class RecipeTrackerController extends Controller
                     'message' => 'No recipes found matching the criteria',
                     
                 ];
-                return response()->json($array, 200);
+                return response()->json($array, 404);
             }
            
             
@@ -46,10 +46,10 @@ class RecipeTrackerController extends Controller
 
 
     //Store Data
-    public function recipeTrackerStoreData(RecipeTrackerRequest $request) {
+    public function save(RecipeTrackerRequest $request) {
         try {
            //$data = RecipeTracker::saveBasicData($request->all());
-           $data = RecipeTracker::saveBasicData($request->validated());
+           $data = RecipeTracker::saveData($request->validated());
            if($data) {
             $array = [
                 'status' => true,
@@ -113,7 +113,7 @@ class RecipeTrackerController extends Controller
                 'message' => 'Edit data not found',
                 
             ]; 
-            return response()->json($array, 200);
+            return response()->json($array, 404);
           }  
             
         } catch (\Exception $e) {
@@ -127,9 +127,9 @@ class RecipeTrackerController extends Controller
 
 
     //Update
-    public function recipeTrackerUpdateData(Request $request) {
+    public function update(Request $request) {
         try {
-            $data = RecipeTracker::updateBasicData($request->all());
+            $data = RecipeTracker::updateData($request->all());
            if($data) {
             $array = [
                 'status' => true,
@@ -143,7 +143,7 @@ class RecipeTrackerController extends Controller
                     'status' => false,
                     'message' => 'Recipe Tracker failed to add'
                 ];
-                return response()->json($array, 200);
+                return response()->json($array, 404);
             }
             
         } catch (\Exception $e) {
@@ -169,7 +169,7 @@ class RecipeTrackerController extends Controller
                     'message' => 'Recipe Tracker Failed To Deleted..!',
                     
                 ];
-                return response()->json($array, 200);
+                return response()->json($array, 404);
             }
         } catch (\Throwable $th) {
             throw $th;

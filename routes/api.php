@@ -18,12 +18,11 @@ use App\Http\Controllers\API\RecipeTrackerController;
 
 
 Route::middleware('auth:sanctum')->prefix('recipe')->group(function () {
-    Route::get('getList', [RecipeTrackerController::class, 'recipeListTracker']);
-    Route::post('getList', [RecipeTrackerController::class, 'recipeListTracker']);
-    Route::post('saveData', [RecipeTrackerController::class, 'recipeTrackerStoreData']);
+    Route::get('list', [RecipeTrackerController::class, 'list']);
+    Route::post('save', [RecipeTrackerController::class, 'save']);
     Route::get('/show/{id}', [RecipeTrackerController::class, 'show']);
     Route::get('/edit/{id}', [RecipeTrackerController::class, 'edit']);
-    Route::put('updateData', [RecipeTrackerController::class, 'recipeTrackerUpdateData']);
+    Route::put('update', [RecipeTrackerController::class, 'update']);
     Route::get('delete/{id}', [RecipeTrackerController::class, 'delete']);
     Route::get('/difficulty/{level}', [RecipeTrackerController::class, 'filterByDifficulty']);
     Route::post('logout', [AuthController::class, 'logout']);
